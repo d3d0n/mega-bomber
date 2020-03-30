@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python
+# -*- coding: ascii -*-
 import requests
 import threading
 from datetime import datetime, timedelta
