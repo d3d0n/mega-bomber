@@ -61,13 +61,9 @@ def start(message):
     boom = types.KeyboardButton(text='SMS Attack')
     stop = types.KeyboardButton(text='Spam Stop')
     info = types.KeyboardButton(text='Information')
-    admin = types.KeyboardButton(text='Admin panel')
-    buttons_to_add = [boom, info, stop]
-    if message.text == 'rusitanc':
-        buttons_to_add.append(admin)
 
     keyboard.add(*buttons_to_add)
-    bot.send_message(message.chat.id, 'You\'re welcome!🙋‍♂!\nThat\'s the bomber of MYR team\nYou are responsible for using this bot.\nChoose the action:',  reply_markup=keyboard)
+    bot.send_message(message.chat.id, 'You\'re welcome!🙋‍♂!\nThat\'s the SMS bomber\nYou are responsible for using this bot.\nChoose the action:',  reply_markup=keyboard)
     save_chat_id(message.chat.id)
 
 def start_spam(chat_id, phone_number, force):
@@ -84,7 +80,7 @@ def start_spam(chat_id, phone_number, force):
         if chat_id not in running_spams_per_chat_id:
             break
         send_for_number(phone_number)
-    bot.send_message(chat_id, f'!Спам на номер {phone_number} завершён!')
+    bot.send_message(chat_id, f'!{phone_number} bombing is stopped!')
     THREADS_AMOUNT[0] -= 1 # it's 1
     try:
         running_spams_per_chat_id.remove(chat_id)
