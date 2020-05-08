@@ -13,6 +13,7 @@
                                            
                                                          ENJOY
 *# Many issues and mistakes in the bot working( specifically a few dead sms-services in UA, KZ).
+
 *# Working fine with RU, US and EU phone numbers.
 
 *# You have some questions or ideas how to complete the code? Please, contact me in telegram: @noded 
