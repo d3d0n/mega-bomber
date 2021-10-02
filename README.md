@@ -21,3 +21,9 @@ PROJECT IS CLOSED, IN STATE OF 01.07.2020 PROJECT IS CLOSED, IN STATE OF 01.07.2
 
 What's new in v0.0.1:
 30.03.2020, released pre-alpha version
+
+What's new in v0.0.1_1
+01.10.2021, 30 new services for RU/CIS | Debugging admin tool
+
+Press release on 01.11.2021
+Coming soon
