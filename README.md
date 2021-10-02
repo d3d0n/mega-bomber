@@ -17,13 +17,14 @@
 
 *# Working fine with RU, US and EU phone numbers.
 
-*# You have some questions or ideas how to complete the code? Please, contact me in telegram: @noded 
+*# You have some questions or ideas how to complete the code? Please, contact me in telegram: @ded_off
 
 What's new in v0.0.1:
 30.03.2020, released pre-alpha version
 
 What's new in v0.0.1_1
 01.10.2021, 30 new services for RU/CIS | Debugging admin tool
+
 Changed api ver to the newest one
 
 Press release on 01.11.2021
