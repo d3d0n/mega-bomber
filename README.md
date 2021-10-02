@@ -1,6 +1,5 @@
 # mega-bomber
  This is a new telegram project written on python using pyTelegramBotAPI, designed to test your sim cards for durability;)
-PROJECT IS CLOSED, IN STATE OF 01.07.2020 PROJECT IS CLOSED, IN STATE OF 01.07.2020 PROJECT IS CLOSED, IN STATE OF 01.07.2020 PROJECT IS CLOSED, IN STATE OF 01.07.2020 PROJECT IS CLOSED, IN STATE OF 01.07.2020 PROJECT IS CLOSED, IN STATE OF 01.07.2020 PROJECT IS CLOSED, IN STATE OF 01.07.2020 PROJECT IS CLOSED, IN STATE OF 01.07.2020
  
                                                        REQUIRMENTS
                                                   ---pyTelegramBotAPI---
