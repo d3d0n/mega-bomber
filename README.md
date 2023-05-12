@@ -8,7 +8,7 @@
                                             1.Download and install python 3.8+
                                       2.Install pyTelegramBotAPI with the command in cmd:
                                               3.pip install pyTelegramBotAPI
-                                       -0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-
+                                     -0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-
                                          Launch the main .py file of the bomber
                                            
                                           
